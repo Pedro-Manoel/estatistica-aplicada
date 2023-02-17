@@ -18,7 +18,7 @@ Repositório com as atividades desenvolvidas ao longo da disciplina.
 
 ### 🔖 Relatórios
 
-|  Relatorio   |                  Tema abordado                   | Descrição para Desenvolvimento          | Resultado                                       | Código Quarto                                   |
+|  Relatório   |                  Tema abordado                   | Descrição          | Resultado                                       | Código Quarto                                   |
 | :----------: | :----------------------------------------------: | --------------------------------------- | ----------------------------------------------- | ----------------------------------------------- |
 | relatorio_01 |       Análise Exploratória de Dados (AED)        | [PDF](docs/relatorios/relatorio_01.pdf) | [PDF](relatorios/relatorio_01/relatorio_01.pdf) | [QMD](relatorios/relatorio_01/relatorio_01.qmd) |
 | relatorio_02 | Análise de Correlação e Regressão Linear Simples | [PDF](docs/relatorios/relatorio_02.pdf) | [PDF](relatorios/relatorio_02/relatorio_02.pdf) | [QMD](relatorios/relatorio_02/relatorio_02.qmd) |
