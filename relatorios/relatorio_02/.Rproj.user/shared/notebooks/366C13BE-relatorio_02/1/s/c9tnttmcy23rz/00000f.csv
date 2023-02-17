@@ -1,0 +1,5 @@
+"0","ggplot(data = dados, aes(x = mheightcm)) + "
+"0","  geom_density(fill = ""green"", alpha = 0.5) +"
+"0","  ggtitle(""Altura da Mãe em Centímetros"") +"
+"0","  xlab(""Altura da Mãe (em cm)"") +"
+"0","  ylab(""Densidade"")"

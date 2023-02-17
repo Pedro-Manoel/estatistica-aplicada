@@ -1,0 +1,8 @@
+"0","mageyrs_new = 22"
+"0","predict(model2, newdata = data.frame(mageyrs = mageyrs_new))"
+"1","      1 "
+"1","
+"
+"1","3.40887 "
+"1","
+"

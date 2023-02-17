@@ -1,0 +1,4 @@
+"0","ggplot(dados, aes(x = mheightcm, y = bwtkg)) + "
+"0","  geom_point() + "
+"0","  geom_smooth(method = ""lm"",  formula = y ~ x, se = FALSE) + "
+"0","  labs(x = ""Altura da mãe (em cm)"", y = ""Peso ao nascer (em kg)"")"

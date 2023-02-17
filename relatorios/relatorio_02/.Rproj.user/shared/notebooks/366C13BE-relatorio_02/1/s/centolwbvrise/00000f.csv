@@ -1,0 +1,8 @@
+"0","gestwks_new <- 24"
+"0","predict(model1, newdata = data.frame(gestwks = gestwks_new))"
+"1","       1 "
+"1","
+"
+"1","1.634537 "
+"1","
+"

@@ -1,0 +1,5 @@
+"0","mean = 100 "
+"0","sdX = 10"
+"0","sd_X = 100/sqrt(16)"
+"0",""
+"0","curve(dnorm(x, mean, sdX), ylab = ""dnorm(x)"", from=60, to=140, col=""blue"")"

@@ -1,0 +1,1 @@
+"0","curve(dnorm(x, mean, sd_X), from=60, to=140, add=TRUE, col=""red"")"

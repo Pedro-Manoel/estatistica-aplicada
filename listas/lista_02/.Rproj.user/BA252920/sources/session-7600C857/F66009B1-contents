@@ -1,0 +1,480 @@
+---
+title: "lista 02 (Distribuição Normal)"
+author: "Pedro Manoel Herminio Alves - 119210706"
+date: "16/10/2022"
+format: pdf
+---
+
+# Questão 01
+
+## a)
+
+### Solução (Manual)
+
+![](images/paste-76A756BF.png)
+
+### Solução (R)
+
+```{r}
+# P(Z < 1,64)
+
+pnorm(1.64)
+```
+
+## b)
+
+As probabilidades de variáveis aleatórias contínuas $(X)$ são definidas como a área sob a curva da sua distribuição. Assim, apenas as faixas de valores podem ter uma probabilidade diferente de zero. A probabilidade de que uma variável aleatória contínua seja igual a algum valor é sempre zero. Sendo assim, $P(Z = 1,64) = 0$
+
+## c)
+
+### Solução (Manual)
+
+![](images/paste-9F35CDFC.png)
+
+### Solução (R)
+
+```{r}
+# P(Z <= 1,64)
+
+pnorm(1.64)
+```
+
+## d)
+
+### Solução (Manual)
+
+![](images/paste-1E31DE43.png)
+
+### Solução (R)
+
+```{r}
+# P(Z < -1,64)
+
+pnorm(-1.64)
+```
+
+## e)
+
+### Solução (Manual)
+
+![](images/paste-83A4FCB9.png)
+
+### Solução (R)
+
+```{r}
+# P(−1,64 < Z < 1,64) = P(Z < 1,64) - P(Z < -1,64)
+
+pnorm(1.64) - pnorm(-1.64)
+```
+
+## f)
+
+### Solução (Manual)
+
+![](images/paste-59FCFC91.png)
+
+### Solução (R)
+
+```{r}
+# P(Z > 1,64) = 1 - P(Z < 1,64) 
+
+1 - pnorm(1.64)
+```
+
+## g)
+
+### Solução (Manual)
+
+![](images/paste-06B81302.png){width="326"}
+
+### Solução (R)
+
+```{r}
+# P(Z < z) = 0,05 (5%)
+
+qnorm(0.05)
+```
+
+## h)
+
+### Solução (Manual)
+
+![](images/paste-D71F768A.png){width="387"}
+
+### Solução (R)
+
+```{r}
+# P(Z >= z) = 0,05 (5%)
+
+qnorm(1 - 0.05)
+```
+
+# Questão 02
+
+```{r}
+# X ∼ N(100; 25)
+
+# Parâmetros
+mean = 100 # Média
+vari = 25 # Variância
+sd = sqrt(vari) # Desvio Padrão
+```
+
+## a)
+
+### Solução (Manual)
+
+![](images/paste-4B6744C4.png)
+
+### Solução (R)
+
+```{r}
+# P(X >= 108)
+
+1 - pnorm(108, mean, sd)
+```
+
+## b)
+
+As probabilidades de variáveis aleatórias contínuas $(X)$ são definidas como a área sob a curva da sua distribuição. Assim, apenas as faixas de valores podem ter uma probabilidade diferente de zero. A probabilidade de que uma variável aleatória contínua seja igual a algum valor é sempre zero. Sendo assim, $P(Z = 100) = 0$
+
+## c)
+
+### Solução (Manual)
+
+![](images/paste-C405DD24.png)
+
+### Solução (R)
+
+```{r}
+# P(89 <= X <= 107) = P(X <= 107) - P(X <= 89) 
+
+pnorm(107, mean, sd) - pnorm(89, mean, sd)
+```
+
+## d)
+
+### Solução (Manual)
+
+![](images/paste-7FA6435A.png)
+
+### Solução (R)
+
+```{r}
+# P(12 < X − µ < 16) = P(X < 12/sd) - P(X < 16/sd) 
+
+pnorm(16/sd) - pnorm(12/sd) 
+```
+
+## e)
+
+### Solução (Manual)
+
+![](images/paste-5523FC89.png)
+
+### Solução (R)
+
+```{r}
+# P(112 < X < 116) = P(116) - P(112)
+
+pnorm(116, mean, sd) - pnorm(112, mean, sd) 
+```
+
+## f)
+
+### Solução (Manual)
+
+![](images/paste-8B49450E.png)
+
+### Solução (R)
+
+```{r}
+# P(X < 100 ou X > 106) = P(X < 100) + P(x > 106)
+
+pnorm(100, mean, sd) + (1 - pnorm(106, mean, sd))
+```
+
+## g)
+
+#### Solução (Manual)
+
+![](images/paste-459E9D02.png){width="561"}
+
+### Solução (R)
+
+```{r}
+# P(X < x) = 0,05;
+
+qnorm(0.05, mean, sd)
+```
+
+## h)
+
+### Solução (Manual)
+
+![](images/paste-F43C78F9.png){width="529"}
+
+### Solução (R)
+
+```{r}
+# P(X > x) = 0,05
+
+qnorm(1 - 0.05, mean, sd)
+```
+
+## i)
+
+### Solução (Manual)
+
+![](images/paste-4068B0D4.png){width="570"}
+
+### Solução (R)
+
+```{r}
+# P(X > x) = 0,975
+
+qnorm(1 - 0.975, mean, sd)
+```
+
+# Questão 03
+
+```{r}
+# X ∼ N(100; 25)
+
+# Parâmetros
+mean = 2.9 # Média
+vari = 1.96 # Variância
+sd = sqrt(vari) # Desvio Padrão
+```
+
+## a)
+
+### Solução (Manual)
+
+![](images/paste-4B1E8A53.png)
+
+### Solução (R)
+
+```{r}
+# P(X < 1)
+
+pnorm(1, mean, sd)
+```
+
+## b)
+
+### Solução (Manual)
+
+![](images/paste-D0BD00FE.png)
+
+### Solução (R)
+
+```{r}
+# P(X >= 4)
+
+1 - pnorm(4, mean, sd)
+```
+
+## c)
+
+### Solução (Manual)
+
+![](images/paste-DC48D3DD.png)
+
+### Solução (R)
+
+```{r}
+# P(X >= 2)
+
+1 - pnorm(2, mean, sd)
+```
+
+## d)
+
+### Solução (Manual)
+
+![](images/paste-0CCA82FD.png)
+
+### Solução (R)
+
+```{r}
+# P(2,5 < X < 4) = P(X < 4) - P(X < 2,5)
+
+pnorm(4, mean, sd) - pnorm(2.5, mean, sd)
+```
+
+## e)
+
+Questão não apresenta um enunciado válido e lógico.
+
+## f)
+
+Questão não apresenta um enunciado válido e lógico.
+
+## g)
+
+### Solução (Manual)
+
+![](images/paste-CDAB7D83.png)
+
+### Solução (R)
+
+```{r}
+# P(X >= x) = 0,05;
+
+qnorm(1 - 0.05, mean, sd)
+```
+
+# Questão 04
+
+## *OBS_01*
+
+Para qualquer distribuição normal, a área sob a curva (probabilidade) do intervalo $\left (\mu - k\sigma; \ \mu + k\sigma \right)$ com $k \in \mathbb{R}$ e quaisquer valores de $\mu$ e $\sigma$ é igual a:
+
+$P(\mu − k\sigma \leqslant X \leqslant \mu + k\sigma)$
+
+sabendo que $Z =\frac{X - \mu}{\sigma}$ podemos normalizar $X$ da seguinte forma:
+
+$$P\left (\mu − k\sigma \leqslant  X \leqslant \mu + k\sigma  \right) =$$
+
+$$P\left (\frac{\mu − kσ - \mu}{\sigma} \leqslant  \frac{X-\mu}{\sigma} \leqslant \frac{\mu + k\sigma - \mu}{\sigma} \right) = $$
+
+$$P\left (\frac{{\color{Red} \not{\mu}} − k{\color{Green} \not{\sigma}} - {\color{Red} \not{\mu}}}{{\color{Green} \not{\sigma}}} \leqslant  Z \leqslant \frac{{\color{Red} \not{\mu}} + k\color{Green} \not{\sigma} - {\color{Red} \not{\mu}}}{\color{Green} \not{\sigma}} \right) = $$
+
+$$P\left (-k \leqslant Z \leqslant k \right)$$
+
+Com isso, podemos concluir que para qualquer distribuição normal a área sob a curva (probabilidade) do intervalo $\left (\mu - k\sigma; \ \mu + k\sigma \right)$ com $k \in \mathbb{R}$ sempre será a probabilidade do intervalo $\left ( -k; \ k \right)$ não importando os valores de $\mu$ e $\sigma$
+
+## a)
+
+Levando em conta a \[OBS_01\] e $k = 1,64$ sabemos que $\left (\mu - 1,64\sigma; \ \mu + 1,64\sigma \right) = (-1,64; 1,64)$
+
+Com isso, podemos calcular:
+
+$P(-1,64 \leqslant Z \leqslant 1,64)$
+
+```{r}
+pnorm(1.64) - pnorm(-1.64)
+```
+
+Gráfico:
+
+![](images/paste-95AB349F.png){width="404"}
+
+## b)
+
+Levando em conta a \[OBS_01\] e $k = 1,96$ sabemos que $\left (\mu - 1,96\sigma; \ \mu + 1,96\sigma \right) = (-1,96; 1,96)$
+
+Com isso, podemos calcular:
+
+$P(-1,96 \leqslant Z \leqslant 1,96)$
+
+```{r}
+pnorm(1.96) - pnorm(-1.96)
+```
+
+Gráfico:
+
+![](images/paste-77DED234.png){width="404"}
+
+## c)
+
+Levando em conta a \[OBS_01\] e $k = 2,57$ sabemos que $\left (\mu - 2,57\sigma; \ \mu + 2,57\sigma \right) = (-2,57; 2,57)$
+
+Com isso, podemos calcular:
+
+$P(-2,57 \leqslant Z \leqslant 2,57)$
+
+```{r}
+pnorm(2.57) - pnorm(-2.57)
+```
+
+Gráfico:
+
+![](images/paste-136D6EE6.png){width="404"}
+
+## d)
+
+| Intervalo                                                                                        | Área (Probabilidade) |
+|--------------------------------------------------------------------------------------------------|----------------------|
+| $$                                                                                               
+                \left (\mu - 1,64\sigma; \ \mu + 1,64\sigma \right)                                
+                $$                                                                                 | 0.8989948 **(0.90)** |
+| $$                                                                                               
+                \left (\mu - 1,96\sigma; \ \mu + 1,96\sigma \right)                                
+                $$                                                                                 | 0.9500042 **(0.95)** |
+| $$                                                                                               
+                \left (\mu - 2,57\sigma; \ \mu + 2,57\sigma \right)                                
+                $$                                                                                 | 0.9898301 **(0.99)** |
+
+# Questão 05
+
+## a)
+
+### Solução (Manual)
+
+![](images/paste-705ADC62.png){width="388"}
+
+### Solução (R)
+
+```{r}
+# P(−z < Z < z) = 0,90 (90,0%) = -1 * P(Z < (0,50 - 0,90/2))
+
+-1 * qnorm(0.50 - 0.90/2)
+```
+
+### Gráfico
+
+![](images/paste-95AB349F.png){width="404"}
+
+## b)
+
+### Solução (Manual)
+
+![](images/paste-D911EC8A.png){width="415"}
+
+### Solução (R)
+
+```{r}
+# P(−z < Z < z) = 0,95 (95,0%) = -1 * P(Z < (0,50 - 0,95/2))
+
+-1 * qnorm(0.50 - 0.95/2)
+```
+
+### Gráfico
+
+![](images/paste-77DED234.png){width="404"}
+
+## c)
+
+### Solução (Manual)
+
+![](images/paste-A7F4017F.png){width="404"}
+
+### Solução (R)
+
+```{r}
+# P(−z < Z < z) = 0,99 (99,0%) = -1 * P(Z < (0,50 - 0,99/2))
+
+-1 * qnorm(0.50 - 0.99/2)
+```
+
+### Gráfico
+
+![](images/paste-136D6EE6.png){width="404"}
+
+## d)
+
+### Tabela
+
+| $$                                                             
+            P\left ( -z < Z < z \right)                          
+            $$                                                   | Proporção | $$ z $$             |
+|----------------------------------------------------------------|-----------|---------------------|
+| 0,90                                                           | 90%       | 1.644854 **(1.64)** |
+| 0,95                                                           | 95%       | 1.959964 **(1.96)** |
+| 0,99                                                           | 99%       | 2.575829 **(2.58)** |
+
+## e)
+
+Sim. Ambas as questões estão trabalhando com o mesmo intervalo de valores, com isso, estão resultando em mesmos valores de probabilidades

@@ -1,0 +1,5 @@
+"0","ggplot(dados, aes(x = mageyrs, y = factor(1))) +"
+"0","  geom_boxplot() +"
+"0","  xlab(""Idade da Mãe (em Anos)"") +"
+"0","  ylab("""") +"
+"0","  ggtitle(""Boxplot da Distribuição da Idade da Mãe"")"

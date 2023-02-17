@@ -1,0 +1,657 @@
+---
+title: "Trabalho de Estatística 01 - Análise Exploratória de Dados (AED)"
+author: "Pedro Manoel (119210706), Lucas Lima (119210396), Felipe Oliveira (119210148)"
+date: "05/12/2022"
+format: 
+  pdf:
+    toc: true
+    toc-title: "Sumário"
+    documentclass: scrreprt
+---
+
+# 1. Contexto
+
+Uma loja de varejo localizada nos Estados Unidos (EUA), decidiu realizar um estudo estatístico sobre as suas vendas no período de 2015 a 2018, com o objetivo de utilizar esse estudo como apoio na tomada de decisões executivas/comerciáis para o ano de 2019. Com isso, ela elencou alguns dados especificos que gostaria de ter no referido estudo, bem como algumas hipóteses que ela gostaria que fosse verificada e documentada.
+
+Os dados específicos elencados pela loja foram:
+
+-   Qual é o total de vendas por dia, mês e ano
+-   Qual é a média e o desvio padrão das vendas por dia, mês e ano
+-   Qual é o tipo de envio mais utilizado nas vendas por mês e ano
+-   Quais as dez cidades e estados que possuem o maior valor de vendas e qual foi a categoria de produto mais vendida
+
+As hipóteses levantadas pela loja foram:
+
+-   (1) As vendas mensais da categoria Technology são maiores que as da categoria Office Supplies
+
+-   (2) O valor das vendas mensais no ano de 2018 pode ser considerada proviniente de uma distribuição Normal
+
+-   (3) O estado onde a venda foi realizada afeta o seu valor
+
+# 2. Levantamentos do estudo estatístico
+
+## 2.1. População
+
+-   **Qual:** Todas as vendas da super loja nos anos de 2015 a 2018
+
+-   **Tipo:** Finita
+
+## 2.2. Variáveis
+
+-   Data da venda (Dia, Mês, Ano)
+    -   **Tipo:** Qualitativa Ordinal
+-   Tipo de envio
+    -   **Tipo:** Qualitativa Nominal
+-   Estado da venda
+    -   **Tipo:** Qualitativa Nominal
+-   Cidade da venda
+    -   **Tipo:** Qualitativa Nominal
+-   Categoria do produto
+    -   **Tipo:** Quantitativa Nominal
+-   Valor da venda
+    -   **Tipo:** Quantitativa Contínua
+
+## 2.3. Objetivos
+
+-   **Geral:** Tem-se como objetivo geral a utilização do estudo estatístico para a tomada de decisões executivas/comerciáis para o ano de 2019 da loja.
+-   **Específicos:** Tem-se como objetivos específicos o levantamento de dados elencados pela loja e a verificação e documentação de hipóteses tembém levantados pela loja.
+
+## 2.4. Foi necessário a coleta de uma amostra?
+
+Não. O presente estudo foi realizado com a população por completa, ou seja, utilizou-se de um censo no lugar de uma amostra. Dessa forma, toda e qualquer informação/dado gerado pelo presente estudo extraído da população é um parâmetro.
+
+Contudo, para os testes de hipóteses assumimos que os dados são provenientes de uma amostra e que para todo teste de hipótese temos como nível de significância 0.05
+
+# 3. Tratamentos da base de dados
+
+## 3.1. Instalando bibliotecas/pacotes necessários
+
+```{r}
+#| label: install-packages
+#| include: false
+
+# install.packages('dplyr')
+# install.packages('DataExplorer')
+# install.packages('ggplot2')
+# install.packages('lsr')
+# install.packages("lubridate")
+# install.packages("nortest")
+```
+
+```{r}
+#| label: load-packages
+#| warning: false
+
+library(lubridate)
+library(dplyr)
+library(DataExplorer)
+library(ggplot2)
+library(nortest)
+```
+
+**Paleta de cores**
+
+```{r}
+Backgroundv="#282a36"	
+Current_Line="#44475a"	
+Foreground="#f8f8f2"	
+Comment="#6272a4"	
+Cyan="#8be9fd"	
+Green="#50fa7b"	
+Orange="#ffb86c"	
+Pink="#ff79c6"	
+Purple="#bd93f9"	
+Red="#ff5555"	
+Yellow="#f1fa8c"
+```
+
+## 3.2. Carregando base de dados
+
+```{r}
+dados = read.csv("datasets/data.csv")
+```
+
+## 3.3. Visualizando informações sobre a base de dados
+
+**Número de linhas e colunas**
+
+```{r}
+dim(dados)
+```
+
+Como pode ser visualizado acima temos uma população de tamanho 9800 e 18 varíaveis
+
+**Nome das colunas**
+
+```{r}
+names(dados)
+```
+
+Dessas colunas(variáveis) vamos utilizar somente
+
+-   **Order.Date** (Data da venda)
+-   **Ship.Mode** (Tipo de envio)
+-   **State** (Estado da venda)
+-   **City** (Cidade da venda)
+-   **Category** (Categoria do produto)
+-   **Sales** (Valor da venda)
+
+## 3.4. Manipulando base de dados para o estudo
+
+**Selecionandos as variáveis de interesse**
+
+```{r}
+dados = 
+  dados %>% 
+  select(Order.Date, Ship.Mode, State, City, Category, Sales)
+
+knitr::kable(head(dados), caption="Primeiras linhas da base de dados")
+```
+
+**Buscando por valores ausentes (NAs, zeros, etc) com o pacote "DataExplorer"**
+
+**Detalhes**
+
+-   O parâmetro **group** da função categoriza a variável de acordo com os limites superiores estipulados
+
+```{r}
+plot_missing(dados,
+             title="Porcentagem de valores ausentes nas variáveis",
+             group = list(Bom = 0.05, Ok = 0.4, Ruim = 0.8, Remover = 1))
+
+```
+
+Como pode ser visualizado acima não existe valores ausentes na base de dados para as variáveis utilizadas.
+
+**Transformação dos dados**
+
+Para melhorar o processamento e facilitar nas operações estátisticas, devemos separar a coluna **Order.Data** em três novas colunas **Day**, **Month** e **Year**
+
+```{r}
+dados = 
+  dados %>% 
+  mutate(
+    Day = day(dmy(Order.Date)), 
+    Month = month(dmy(Order.Date), label = TRUE), 
+    Year = year(dmy(Order.Date)), 
+    Order.Date = NULL
+  )
+
+knitr::kable(head(dados), caption="Primeiras linhas da base de dados")
+```
+
+# 4. Calculando o total de vendas por dia, mês e ano
+
+## 4.1. Por dia
+
+```{r}
+soma_dia = 
+  dados %>% 
+  group_by(Day) %>% 
+  summarise(Sum = sum(Sales))
+```
+
+**Tabela**
+
+```{r}
+knitr::kable(soma_dia, caption="Soma das vendas por dia")
+```
+
+**Gráfico**
+
+```{r}
+ggplot(soma_dia, aes(x=Day, y=Sum, label=Day)) +
+geom_bar(stat = "identity", width = 0.4, fill = Comment) +
+geom_label()
+```
+
+## 4.2. Por mês
+
+```{r}
+soma_mes = 
+  dados %>% 
+  group_by(Month) %>% 
+  summarise(Sum = sum(Sales))
+```
+
+**Tabela**
+
+```{r}
+knitr::kable(soma_mes, caption="Soma das vendas por mês")
+```
+
+**Gráfico**
+
+```{r}
+ggplot(soma_mes, aes(x=Month, y=Sum, label=round(Sum))) +
+geom_bar(stat = "identity", width = 0.8, fill = Comment) +
+geom_label()
+```
+
+## 4.3. Por ano
+
+```{r}
+soma_ano = 
+  dados %>% 
+  group_by(Year) %>% 
+  summarise(Sum = sum(Sales))
+```
+
+**Tabela**
+
+```{r}
+knitr::kable(soma_ano, caption="Soma das vendas por ano")
+```
+
+**Gráfico**
+
+```{r}
+ggplot(soma_ano, aes(x=Year, y=Sum, label=round(Sum))) +
+geom_bar(stat = "identity", fill = Comment) +
+geom_label()
+```
+
+# 5. Calculando a média e o desvio padrão das vendas por dia, mês e ano
+
+## 5.1. Média
+
+### 5.1.1. Por dia
+
+```{r}
+media_dia = 
+  dados %>% 
+  group_by(Day) %>% 
+  summarise(Mean = mean(Sales))
+```
+
+**Tabela**
+
+```{r}
+knitr::kable(media_dia, caption="Média das vendas por dia")
+```
+
+**Gráfico**
+
+```{r}
+ggplot(media_dia, aes(x=Day, y=Mean, label=Day)) +
+geom_bar(stat = "identity", width = 0.4, fill = Red) +
+geom_label()
+```
+
+### 5.1.2. Por mês
+
+```{r}
+media_mes = 
+  dados %>% 
+  group_by(Month) %>% 
+  summarise(Mean = mean(Sales))
+```
+
+**Tabela**
+
+```{r}
+knitr::kable(media_mes, caption="Média das vendas por mês")
+```
+
+**Gráfico**
+
+```{r}
+ggplot(media_mes, aes(x=Month, y=Mean, label=round(Mean))) +
+geom_bar(stat = 'identity', fill = Red) +
+geom_label() 
+```
+
+### 5.1.3. Por ano
+
+```{r}
+media_ano = 
+  dados %>% 
+  group_by(Year) %>% 
+  summarise(Mean = mean(Sales))
+```
+
+**Tabela**
+
+```{r}
+knitr::kable(head(media_ano), caption="Média das vendas por ano")
+```
+
+**Gráfico**
+
+```{r}
+ggplot(media_ano, aes(x=Year, y=Mean, label=round(Mean))) +
+geom_bar(stat = 'identity', fill = Red) +
+geom_label()  
+```
+
+## 5.2. Desvio padrão
+
+### 5.2.1. Por dia
+
+```{r}
+sd_dia = 
+  dados %>% 
+  group_by(Day) %>% 
+  summarise(Sd = sd(Sales))
+```
+
+**Tabela**
+
+```{r}
+knitr::kable(sd_dia, caption="Desvio padrão das vendas por dia")
+```
+
+**Gráfico**
+
+```{r}
+ggplot(sd_dia, aes(x=Day, y=Sd, label=Day)) +
+geom_bar(stat = "identity", width = 0.4, fill = Purple) +
+geom_label()
+```
+
+### 5.2.2. Por mês
+
+```{r}
+sd_mes = 
+  dados %>% 
+  group_by(Month) %>% 
+  summarise(Sd = sd(Sales))
+```
+
+**Tabela**
+
+```{r}
+knitr::kable(sd_mes, caption="Desvio padrão das vendas por mês")
+```
+
+**Gráfico**
+
+```{r}
+ggplot(sd_mes, aes(x=Month, y=Sd, label=round(Sd))) +
+geom_bar(stat = "identity", fill = Purple) +
+geom_label()
+```
+
+### 5.2.3. Por ano
+
+```{r}
+sd_ano = 
+  dados %>% 
+  group_by(Year) %>% 
+  summarise(Sd = sd(Sales))
+```
+
+**Tabela**
+
+```{r}
+knitr::kable(sd_ano, caption="Desvio padrão das vendas por ano")
+```
+
+**Gráfico**
+
+```{r}
+ggplot(sd_ano, aes(x=Year, y=Sd, label=round(Sd))) +
+geom_bar(stat = "identity", fill = Purple) +
+geom_label()
+```
+
+# 6. Verificando o tipo de envio mais utilizado nas vendas por mês e ano
+
+## 6.1. Por mês
+
+**Total de envios de cada tipo por mês**
+
+```{r}
+envio_mes = 
+  dados %>% 
+  group_by(Month, Ship.Mode) %>% 
+  summarise(Count = n(), .groups = 'drop_last')
+
+knitr::kable(envio_mes, caption="Total de envios de cada tipo por mês")
+```
+
+**Envio mais utilizado por mês**
+
+```{r}
+envio_mes = 
+  dados %>% 
+  group_by(Month, Ship.Mode) %>% 
+  summarise(Count = n(), .groups = 'drop_last') %>% 
+  filter(Count == max(Count))
+
+knitr::kable(envio_mes, caption="Envio mais utilizado por mês")
+```
+
+## 6.2. Por ano
+
+**Total de envios de cada tipo por ano**
+
+```{r}
+envio_ano = 
+  dados %>% 
+  group_by(Year, Ship.Mode) %>% 
+  summarise(Count = n(),.groups = 'drop_last')
+
+knitr::kable(envio_ano, caption="Total de envios de cada tipo por ano")
+```
+
+**Envio mais utilizado por ano**
+
+```{r}
+envio_ano = 
+  dados %>% 
+  group_by(Year, Ship.Mode) %>% 
+  summarise(Count = n(), .groups = 'drop_last') %>% 
+  filter(Count == max(Count))
+
+knitr::kable(envio_ano, caption="Envio mais utilizado por ano")
+```
+
+# 7. Verificando as dez cidades e estados que possuem o maior valor de vendas e qual foi a categoria de produto mais vendida
+
+## 7.1. Por estado
+
+```{r}
+compras_estado = 
+  dados %>% 
+  group_by(State, Category) %>% 
+  summarise(Sum=sum(Sales), .groups = 'drop_last') %>% 
+  filter(Sum == max(Sum)) %>% 
+  arrange(desc(Sum)) %>% 
+  head(10)
+
+knitr::kable(compras_estado, caption="10 estados com maiores vendas")
+```
+
+## 7.2. Por cidade
+
+```{r}
+compras_cidade = 
+  dados %>% 
+  group_by(City, Category) %>% 
+  summarise(Sum=sum(Sales), .groups = 'drop_last') %>% 
+  filter(Sum == max(Sum)) %>% 
+  arrange(desc(Sum)) %>% 
+  head(10)
+
+knitr::kable(compras_cidade, caption="10 cidades com maiores vendas")
+```
+
+# 8. Verificando as hipóteses leventadas
+
+## 8.1. 1º Hipótese
+
+>As vendas mensais da categoria Technology são maiores que as da categoria Office Supplies
+
+Assumindo que
+
+$\mu_1$ É a média de vendas mensais da categoria Technology
+
+$\mu_2$ É a média de vendas mensais da categoria Office Supplies
+
+
+Temos:
+
+$h0: \mu_1 = \mu_2$ (Hipótese nula)
+
+$h1: \mu_1 > \mu_2$ (Hipótese alternativa)
+
+**Testando a normalidade das vendas mensais da categoria Technology**
+
+```{r}
+vendas_cat_tec = 
+  (
+    dados %>% 
+    filter(Category == "Technology") %>%
+    group_by(Month) %>%
+    summarise(Sales = sum(Sales))
+  )$Sales
+
+shapiro.test(vendas_cat_tec) 
+```
+
+Como p-value = 0.5559 e 0.5559 > 0.05 então há evidência estátistica para comprovar que as vendas mensais da categoria Technology seguem uma distribuição normal
+
+**Testando a normalidade das vendas mensais da categoria Office Supplies**
+
+```{r}
+vendas_cat_off = 
+  (
+    dados %>% 
+    filter(Category == "Office Supplies") %>%
+    group_by(Month) %>%
+    summarise(Sales = sum(Sales))
+  )$Sales
+
+shapiro.test(vendas_cat_off) 
+```
+
+Como p-value = 0.0574 e 0.0574 > 0.05 então há evidência estátistica para comprovar que as vendas mensais da categoria Office Supplies seguem uma distribuição normal
+
+Como ambas as vendas seguem uma distribuição normal podemos aplicar o test t de Student
+
+**Executando o teste t de Student**
+
+```{r}
+result = t.test(vendas_cat_tec, vendas_cat_off, alternative = "greater")
+```
+
+Utilizamos a função t.test do R, especificando a opção "alternative = 'greater'" para indicar que estamos interessado em testar a hipótese de que a média das vendas mensais da Categoria Technology é maior que as da Categoria Office Supplies. O resultado da função incluira o p-valor, que é uma medida da evidência contra a hipótese nula. Se o p-valor for menor do que o nível de significância estabelecido previamente (0.05), podemos concluir com um nível de confiança adequado que as vendas da Categoria Technology são maiores que as vendas da Categoria Office Supplies. Se o p-valor for maior do que o nível de significância, não podemos rejeitar a hipótese nula e devemos concluir que as vendas das duas categorias são iguais.
+
+**Observando o resultado e definindo uma conclusão**
+
+```{r}
+result
+```
+
+Resultados: 
+
+O resultado do teste mostra que o p-valor é de 0.2072, o que significa que não há evidências suficientes para rejeitar a hipótese nula. Isso é reforçado pelo intervalo de confiança de 95% que inclui o valor zero (-10835,18 a Inf). Com base nesse resultado, não podemos concluir com certeza que a média das vendas mensais da categoria Technology é maior que a média das vendas mensais da categoria Office Supplies.
+
+## 8.2. 2º Hipótese
+
+>O valor das vendas mensais no ano de 2018 pode ser considerada proveniente de uma distribuição Normal.
+
+Assumindo que $X$ é o valor das vendas mensais, temos:
+
+$h0: X = N\left ( \mu, \ \sigma^{2} \right )$ (Hipótese nula)
+
+$h1: X \neq N\left ( \mu, \ \sigma^{2} \right )$ (Hipótese alternativa)
+
+**Calculando o valor das vendas mensais do ano de 2018**
+
+```{r}
+vendas_mes_2018 = 
+  dados %>% 
+  filter(Year == '2018') %>% 
+  group_by(Month) %>% 
+  summarise(Sum = sum(Sales))
+
+knitr::kable(vendas_mes_2018, caption="Vendas mensais em 2018")
+```
+
+**Executando o teste Shapiro-Wilk**
+
+```{r}
+shapiro.test(vendas_mes_2018$Sum)
+```
+
+**Observando o resultado e definindo uma conclusão**
+
+O resultado do teste mostra que o p-valor é de 0.6224, o que significa que não há evidências suficientes para rejeitar a hipótese nula de que os valores das vendas mensais em 2018 seguem uma distribuição Normal. Isso é reforçado pelo valor W de 0.949, que é um indicador da aproximação da amostra à distribuição Normal. Valores próximos de 1 indicam que a amostra está mais próxima da distribuição Normal.
+
+Com base nesse resultado, podemos concluir que os valores das vendas mensais em 2018 seguem uma distribuição Normal.
+
+**Visualizando o gráfico de distribuição das vendas mensais em 2018**
+
+```{r}
+vendas = vendas_mes_2018$Sum
+
+mu <- mean(vendas)
+sigma <- sd(vendas)
+
+x <- seq(min(vendas), max(vendas), length.out = 100)
+y <- dnorm(x, mean = mu, sd = sigma)
+
+df <- data.frame(x = x, y = y)
+
+
+
+ggplot(df, aes(x = x, y = y), xlab("sdfl")) + 
+  geom_line(colour = "blue", linewidth = 2) +
+  labs(
+    title = "Distribuição do valor das vendas mensais em 2018", 
+    x = "Vendas", y = "Frequência"
+  )
+```
+## 8.3. 3º Hipótese
+
+>O estado onde a venda foi realizada afeta o seu valor
+
+Assuminfo que, $\mu_1,\mu_2,...,\mu_n$ são os valores médios das vendas para cada tipo de envio, temos: 
+
+$h0: \mu_1 = \mu_2 = ... = \mu_n$ (Hipótese nula)
+
+$h1:$ Pelo menos uma das $\mu_i$ é diferente de outra $\mu_j$ (Hipótese alternativa)
+
+Para fazer um teste de hipótese de que o estado afeta o valor das vendas em R, vamos utilizar uma análise de variância (ANOVA). A ANOVA é um método estatístico que permite comparar a média de uma variável dependente (no nosso caso, o valor da venda) entre dois ou mais grupos de uma variável independente (no nosso caso, o estado onde ocorreu a venda).
+
+**Transformando o estado em uma variável categórica**
+```{r}
+dados$Ship.Mode <- as.factor(dados$Ship.Mode)
+```
+
+**Ajustando um modelo de ANOVA**
+
+Temos como variável dependente "Sales" e a variável independente é "Ship.Mode"
+
+```{r}
+modelo <- aov(Sales ~ Ship.Mode, data = dados)
+```
+
+
+**Executando o teste de comparação múltipla de Tukey**
+```{r}
+TukeyHSD(modelo)
+```
+**Observando o resultado e definindo uma conclusão**
+
+O resultado mostra as diferenças entre os valores médios das vendas para cada par de tipos de envio (por exemplo, "Same Day" versus "First Class") e os intervalos de confiança para essas diferenças. O p-valor ajustado mostra a probabilidade de que os resultados observados sejam devidos ao acaso, dado que a hipótese nula é verdadeira.
+
+No caso deste exemplo, o p-valor ajustado para todas as comparações é maior do que o nível de significância que escolhemos (0.05). Isso significa que não podemos rejeitar a hipótese nula, ou seja, não podemos concluir que há uma diferença significativa entre os valores médios das vendas para os diferentes tipos de envio.
+
+# 9. Conclusão
+
+Por meio da análise , foi possível identificar que houve um crescimento de aproximadamente 250 mil vendas durante os 4 anos. Há um maior número de vendas nos meses de Novembro e Dezembro, devido a uma grande quantidade de datas comemorativas e feriados nos EUA durante esse período. Além disso, Março é o mês onde tem a maior variabilidade e média de vendas mensais durante os anos de 2015 a 2018. Portanto é fundamental que a loja, busque estratégias para que o número de vendas se mantenha constante, a fim de mitigar os riscos.
+
+Além do mais, dentre os dez estados que possuem a maior receita de vendas na loja, oito possuem tecnologia como a principal categoria de produto. Dito isso, é necessário traçar planejamentos de marketing e disposição dos produtos dentro da loja para maximizar o faturamento dessa categoria.
+
+Ja no que diz respeito às hipóteses, foi possível identificar que não podemos concluir com certeza que as vendas mensais da categoria Technology é maior que as da categoria Office Supplies, e concluir que as vendas mensais no ano de 2018 seguem uma distribuição normal e que não podemos concluir que O estado onde a venda foi realizada afeta o seu valor.
+
+# 10. Referências
+
+SOUSA, Nuno. Visualização de dados e testes de hipóteses com R: uma breve abordagem prática. 2018
+
+WICKHAM, Hadley; CHANG, Winston; WICKHAM, Maintainer Hadley. Package ‘ggplot2’. Create elegant data visualisations using the grammar of graphics. Version, v. 2, n. 1, p. 1-189, 2016.
+
+BOLFARINE, Heleno; SANDOVAL, Mônica Carneiro. Introdução à inferência estatística. SBM, 2001.

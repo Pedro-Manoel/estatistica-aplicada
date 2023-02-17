@@ -1,0 +1,16 @@
+{
+  "hash": "3e68f8f172f4facc20deb1c83a162799",
+  "result": {
+    "markdown": "---\ntitle: \"lista 03 (Distribuição Amostral da Média, Proporção e Aplicações)\"\nauthor: \"Pedro Manoel Herminio Alves - 119210706\"\ndate: \"25/10/2022\"\nformat: html\n---\n\n\n# Questão 01\n\n## a)\n\n![](images/paste-B5F8D225.png)\n\n## b)\n\n![](images/paste-81B39FA7.png)\n\n## c)\n\n\n::: {.cell}\n\n```{.r .cell-code}\nmean = 100 \nsdX = 10\nsd_X = 100/sqrt(16)\n\ncurve(dnorm(x, mean, sdX), ylab = \"dnorm(x)\", from=60, to=140, col=\"blue\")\ncurve(dnorm(x, mean, sd_X), from=60, to=140, add=TRUE, col=\"red\")\n```\n\n::: {.cell-output-display}\n![](lista_03_files/figure-html/unnamed-chunk-1-1.png){width=672}\n:::\n:::\n\n\n## d)\n\n![](images/paste-67383D04.png)\n\n# Questão 02\n\n## a)\n\n![](images/paste-0F4712C2.png){width=\"470\"}\n\n## b)\n\n![](images/paste-80E0CE64.png){width=\"580\"}\n\n# Questão 03\n\n## a)\n\n![](images/paste-58E2992F.png){width=\"445\"}\n\n## b)\n\n![](images/paste-0FB0E16B.png){width=\"488\"}\n\n# Questão 04\n\n![](images/paste-A9DA3DE8.png)\n\n# Questão 05\n\n## a)\n\n![](images/paste-980EF878.png){width=\"460\"}\n\n## b)\n\n![](images/paste-CBD28C3D.png){width=\"386\"}\n\n# Questão 06\n\n![](images/paste-7B005D21.png)\n",
+    "supporting": [
+      "lista_03_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

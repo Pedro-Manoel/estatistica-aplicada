@@ -1,0 +1,46 @@
+"0","#| label: install-packages"
+"0","#| include: false"
+"0",""
+"0","# install.packages(""haven"")"
+"0","# install.packages('dplyr')"
+"0","# install.packages('ggplot2')"
+"0","# install.packages('lmtest')"
+"0","install.packages('GGally')"
+"2","WARNING: Rtools is required to build R packages but is not currently installed. Please download and install the appropriate version of Rtools before proceeding:
+
+https://cran.rstudio.com/bin/windows/Rtools/
+"
+"2","Installing package into ‘C:/Users/Pedro/AppData/Local/R/win-library/4.2’
+(as ‘lib’ is unspecified)
+"
+"2","also installing the dependency ‘reshape’
+
+"
+"2","trying URL 'https://cran.rstudio.com/bin/windows/contrib/4.2/reshape_0.8.9.zip'
+"
+"2","Content type 'application/zip'"
+"2"," length 170802 bytes (166 KB)
+"
+"2","downloaded 166 KB
+
+"
+"2","trying URL 'https://cran.rstudio.com/bin/windows/contrib/4.2/GGally_2.1.2.zip'
+"
+"2","Content type 'application/zip'"
+"2"," length 1636268 bytes (1.6 MB)
+"
+"2","downloaded 1.6 MB
+
+"
+"1","package ‘reshape’ successfully unpacked and MD5 sums checked
+"
+"1","package ‘GGally’ successfully unpacked and MD5 sums checked
+"
+"1","
+"
+"1",""
+"1","The downloaded binary packages are in
+	C:\Users\Pedro\AppData\Local\Temp\RtmpSQUr4R\downloaded_packages"
+"1",""
+"1","
+"

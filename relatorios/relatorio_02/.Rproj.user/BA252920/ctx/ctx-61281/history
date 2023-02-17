@@ -1,0 +1,52 @@
+#| label: install-packages
+#| include: false
+# install.packages('dplyr')
+# install.packages('DataExplorer')
+# install.packages('ggplot2')
+# install.packages('lsr')
+# install.packages("lubridate")
+# install.packages("nortest")
+install.packages("haven")
+#| label: load-packages
+#| warning: false
+#library(lubridate)
+#library(dplyr)
+#library(DataExplorer)
+#library(ggplot2)
+library(haven)
+Backgroundv="#282a36"
+Current_Line="#44475a"
+Foreground="#f8f8f2"
+Comment="#6272a4"
+Cyan="#8be9fd"
+Green="#50fa7b"
+Orange="#ffb86c"
+Pink="#ff79c6"
+Purple="#bd93f9"
+Red="#ff5555"
+Yellow="#f1fa8c"
+dados = read.dta("datasets/chdsmetric.dta")
+#| label: load-packages
+#| warning: false
+#library(lubridate)
+#library(dplyr)
+#library(DataExplorer)
+#library(ggplot2)
+library(haven)
+dados = read.dta("datasets/chdsmetric.dta")
+dados = read_dta("datasets/chdsmetric.dta")
+dados = read_dta("datasets/chdsmetric.dta")
+head(dados)
+dados =
+dados %>%
+select(gestwks, mageyrs, mheightcm)
+#| label: install-packages
+#| include: false
+#
+# install.packages('DataExplorer')
+# install.packages('ggplot2')
+# install.packages('lsr')
+# install.packages("lubridate")
+# install.packages("nortest")
+install.packages("haven")
+install.packages('dplyr')

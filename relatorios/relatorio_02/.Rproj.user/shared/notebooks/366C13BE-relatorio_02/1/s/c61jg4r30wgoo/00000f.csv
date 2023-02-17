@@ -1,0 +1,8 @@
+"0","mheightcm_new <- 173"
+"0","predict(model3, newdata = data.frame(mheightcm = mheightcm_new))"
+"1","       1 "
+"1","
+"
+"1","3.557776 "
+"1","
+"

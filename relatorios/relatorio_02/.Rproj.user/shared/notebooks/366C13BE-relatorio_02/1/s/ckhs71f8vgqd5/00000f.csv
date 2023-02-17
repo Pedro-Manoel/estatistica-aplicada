@@ -1,0 +1,5 @@
+"0","ggplot(dados, aes(x = gestwks, y = factor(1))) +"
+"0","  geom_boxplot() +"
+"0","  xlab(""Idade Gestacional (em Semanas)"") +"
+"0","  ylab("""") +"
+"0","  ggtitle(""Boxplot da Distribuição da Idade Gestacional em Semanas"")"

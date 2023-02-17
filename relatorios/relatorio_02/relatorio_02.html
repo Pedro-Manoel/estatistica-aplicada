@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.251">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Pedro Manoel (119210706), Lucas Lima (119210396), Felipe Oliveira (119210148)">
+<meta name="dcterms.date" content="2023-10-02">
+
+<title>Trabalho de Estatística 02 - Análise de Correlação e Regressão Linear Simples</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="relatorio_02_files/libs/clipboard/clipboard.min.js"></script>
+<script src="relatorio_02_files/libs/quarto-html/quarto.js"></script>
+<script src="relatorio_02_files/libs/quarto-html/popper.min.js"></script>
+<script src="relatorio_02_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="relatorio_02_files/libs/quarto-html/anchor.min.js"></script>
+<link href="relatorio_02_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="relatorio_02_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="relatorio_02_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="relatorio_02_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="relatorio_02_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Trabalho de Estatística 02 - Análise de Correlação e Regressão Linear Simples</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Pedro Manoel (119210706), Lucas Lima (119210396), Felipe Oliveira (119210148) </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 2, 2023</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header>
+
+<section id="lendo-e-analisando-os-dados" class="level1">
+<h1>1. Lendo e Analisando os dados</h1>
+<section id="importando-bibliotecaspacotes-necessários" class="level2">
+<h2 class="anchored" data-anchor-id="importando-bibliotecaspacotes-necessários">1.1. Importando bibliotecas/pacotes necessários</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(zoo)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="carregando-base-de-dados" class="level2">
+<h2 class="anchored" data-anchor-id="carregando-base-de-dados">1.2. Carregando base de dados</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">=</span> <span class="fu">read_dta</span>(<span class="st">"datasets/chdsmetric.dta"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="selecionandos-as-variáveis-de-interesse" class="level2">
+<h2 class="anchored" data-anchor-id="selecionandos-as-variáveis-de-interesse">1.3. Selecionandos as variáveis de interesse</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">=</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  dados <span class="sc">%&gt;%</span> </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(gestwks, mageyrs, mheightcm, bwtkg)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(dados), <span class="at">caption=</span><span class="st">"Primeiras linhas da base de dados"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<caption>Primeiras linhas da base de dados</caption>
+<thead>
+<tr class="header">
+<th style="text-align: right;">gestwks</th>
+<th style="text-align: right;">mageyrs</th>
+<th style="text-align: right;">mheightcm</th>
+<th style="text-align: right;">bwtkg</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">167.64</td>
+<td style="text-align: right;">3.31</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">160.02</td>
+<td style="text-align: right;">3.63</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">39</td>
+<td style="text-align: right;">32</td>
+<td style="text-align: right;">154.94</td>
+<td style="text-align: right;">3.40</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">39</td>
+<td style="text-align: right;">27</td>
+<td style="text-align: right;">172.72</td>
+<td style="text-align: right;">3.18</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">32</td>
+<td style="text-align: right;">170.18</td>
+<td style="text-align: right;">2.40</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">43</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">160.02</td>
+<td style="text-align: right;">3.90</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="a-análises-descritivas" class="level2">
+<h2 class="anchored" data-anchor-id="a-análises-descritivas">1.4. a) Análises Descritivas</h2>
+<section id="resumos-estatísticos-das-variáveis" class="level3">
+<h3 class="anchored" data-anchor-id="resumos-estatísticos-das-variáveis">1.4.1. Resumos estatísticos das variáveis</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dados)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    gestwks         mageyrs        mheightcm         bwtkg      
+ Min.   :29.00   Min.   :15.00   Min.   :144.8   Min.   :1.500  
+ 1st Qu.:39.00   1st Qu.:21.00   1st Qu.:160.0   1st Qu.:3.080  
+ Median :40.00   Median :25.00   Median :162.6   Median :3.450  
+ Mean   :39.77   Mean   :25.86   Mean   :163.7   Mean   :3.409  
+ 3rd Qu.:41.00   3rd Qu.:29.00   3rd Qu.:167.6   3rd Qu.:3.720  
+ Max.   :48.00   Max.   :42.00   Max.   :180.3   Max.   :5.170  </code></pre>
+</div>
+</div>
+</section>
+<section id="boxplots-para-visualizar-a-distribuição-dos-dados" class="level3">
+<h3 class="anchored" data-anchor-id="boxplots-para-visualizar-a-distribuição-dos-dados">1.4.2. Boxplots para visualizar a distribuição dos dados</h3>
+<p><strong>Variável gestwks</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dados, <span class="fu">aes</span>(<span class="at">x =</span> gestwks, <span class="at">y =</span> <span class="fu">factor</span>(<span class="dv">1</span>))) <span class="sc">+</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Idade Gestacional (em Semanas)"</span>) <span class="sc">+</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Boxplot da Distribuição da Idade Gestacional em Semanas"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="relatorio_02_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Com base no boxplot acima, da Distribuição da idade Gestacional em Semanas, é possível interpretar que o boxplot é simétrico com 3(três) discrepantes superiores e 4(quatro) inferiores, ou seja, indica a existência de valores extremos na amostra, que podem impactar na análise dos dados, pois não seguem a mesma tendência da maioria dos dados que se encontra perto do segundo quartil que é a mediana. É importante avaliar sua influência antes de tomar decisões baseadas nas informações contidas no gráfico.</p>
+<p><strong>Variável mageyrs</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dados, <span class="fu">aes</span>(<span class="at">x =</span> mageyrs, <span class="at">y =</span> <span class="fu">factor</span>(<span class="dv">1</span>))) <span class="sc">+</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Idade da Mãe (em Anos)"</span>) <span class="sc">+</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Boxplot da Distribuição da Idade da Mãe"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="relatorio_02_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Sobre o boxplot acima, da Distribuição da Idade da Mãe, é correto afirmar que o mesmo é simétrico e não possui discrepantes inferiores e apenas 1(um) discrepante superior, ou seja, indica a existência de valores extremos na amostra, que podem impactar na análise dos dados, pois não seguem a mesma tendência da maioria dos dados que se encontra perto do segundo quartil que é a mediana. É importante avaliar sua influência antes de tomar decisões baseadas nas informações contidas no gráfico.</p>
+<p><strong>Variável mheightcm</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dados, <span class="fu">aes</span>(<span class="at">x =</span> mheightcm, <span class="at">y =</span> <span class="fu">factor</span>(<span class="dv">1</span>))) <span class="sc">+</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Altura da Mãe (em cm)"</span>) <span class="sc">+</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Boxplot da Distribuição da Altura da Mãe"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="relatorio_02_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Com base no boxplot acima, da Distribuição da Altura da Mãe, é possível interpretar que o boxplot é assimétrico positivo, ou seja, quando a linha da mediana está próxima ao primeiro quartil. Também é possível inferir que o boxplot possui 1(um) discrepante superior e 2(dois) discrepantes inferiores, isso indica a existência de valores extremos na amostra, que podem impactar na análise dos dados, pois não seguem a mesma tendência da maioria dos dados que se encontra perto do segundo quartil que é a mediana.</p>
+<p><strong>Variável bwtkg</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dados, <span class="fu">aes</span>(<span class="at">x =</span> bwtkg, <span class="at">y =</span> <span class="fu">factor</span>(<span class="dv">1</span>))) <span class="sc">+</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Peso da Criança (em kg)"</span>) <span class="sc">+</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Boxplot da Distribuição do peso da criança ao nascer"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="relatorio_02_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Com base no boxplot acima, da Distribuição do peso da criança ao nascer, é possível interpretar que o boxplot é assimétrico negativo, ou seja, quando a linha da mediana está próxima ao terceito quartil. Também é possível inferir que o boxplot possui 5(cinco) discrepantes superiors e 4(quatro) inferiores, isso indica a existência de valores extremos na amostra, que podem impactar na análise dos dados, pois não seguem a mesma tendência da maioria dos dados que se encontra perto do segundo quartil que é a mediana.</p>
+</section>
+<section id="distribuição-univariada-para-cada-variável" class="level3">
+<h3 class="anchored" data-anchor-id="distribuição-univariada-para-cada-variável">1.4.3. Distribuição univariada para cada variável</h3>
+<p><strong>Variável gestwks</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> dados, <span class="fu">aes</span>(<span class="at">x =</span> gestwks)) <span class="sc">+</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">fill =</span> <span class="st">"blue"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Idade Gestacional em Semanas"</span>) <span class="sc">+</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Idade Gestacional (em Semanas)"</span>) <span class="sc">+</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Densidade"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="relatorio_02_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p><strong>Variável mageyrs</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> dados, <span class="fu">aes</span>(<span class="at">x =</span> mageyrs)) <span class="sc">+</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">fill =</span> <span class="st">"red"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Idade da Mãe em Anos"</span>) <span class="sc">+</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Idade da Mãe (em Anos)"</span>) <span class="sc">+</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Densidade"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="relatorio_02_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p><strong>Variável mheightcm</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> dados, <span class="fu">aes</span>(<span class="at">x =</span> mheightcm)) <span class="sc">+</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">fill =</span> <span class="st">"green"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Altura da Mãe em Centímetros"</span>) <span class="sc">+</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Altura da Mãe (em cm)"</span>) <span class="sc">+</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Densidade"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="relatorio_02_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p><strong>Variável bwtkg</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> dados, <span class="fu">aes</span>(<span class="at">x =</span> bwtkg)) <span class="sc">+</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">fill =</span> <span class="st">"purple"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Peso da Criança ao Nascer em Quilogramas"</span>) <span class="sc">+</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Peso da Criança ao Nascer (em kg)"</span>) <span class="sc">+</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Densidade"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="relatorio_02_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="dispersão-bivariada-para-cada-variável" class="level3">
+<h3 class="anchored" data-anchor-id="dispersão-bivariada-para-cada-variável">1.4.4. Dispersão bivariada para cada variável</h3>
+<p><strong>Variável gestwks</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dados, <span class="fu">aes</span>(<span class="at">x =</span> gestwks, <span class="at">y =</span> bwtkg)) <span class="sc">+</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">formula =</span> y <span class="sc">~</span> x, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Idade gestacional (em Semanas)"</span>, <span class="at">y =</span> <span class="st">"Peso ao nascer (em kg)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="relatorio_02_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p><strong>Variável mageyrs</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dados, <span class="fu">aes</span>(<span class="at">x =</span> mageyrs, <span class="at">y =</span> bwtkg)) <span class="sc">+</span> </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>,  <span class="at">formula =</span> y <span class="sc">~</span> x, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Idade da mãe (em Anos)"</span>, <span class="at">y =</span> <span class="st">"Peso ao nascer (em kg)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="relatorio_02_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p><strong>Variável mheightcm</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dados, <span class="fu">aes</span>(<span class="at">x =</span> mheightcm, <span class="at">y =</span> bwtkg)) <span class="sc">+</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>,  <span class="at">formula =</span> y <span class="sc">~</span> x, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Altura da mãe (em cm)"</span>, <span class="at">y =</span> <span class="st">"Peso ao nascer (em kg)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="relatorio_02_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="matriz-de-correlação-entre-as-variáveis" class="level3">
+<h3 class="anchored" data-anchor-id="matriz-de-correlação-entre-as-variáveis">1.4.5. Matriz de correlação entre as variáveis</h3>
+<p>A matriz de correlação mostra a relação linear entre as variáveis. Os valores na diagonal principal (1) indicam que a correlação entre uma variável e ela mesma é de 100%, o que é esperado.</p>
+<p>As correlações entre as variáveis são medidas pelos valores fora da diagonal principal. Valores próximos a 1 indicam forte correlação positiva, valores próximos a -1 indicam forte correlação negativa e valores próximos a 0 indicam baixa ou nenhuma correlação linear.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(dados)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              gestwks      mageyrs  mheightcm        bwtkg
+gestwks   1.000000000 0.0034133194 0.04764929 0.4259589231
+mageyrs   0.003413319 1.0000000000 0.01748618 0.0009591992
+mheightcm 0.047649294 0.0174861828 1.00000000 0.2025445934
+bwtkg     0.425958923 0.0009591992 0.20254459 1.0000000000</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="b-conclusões-e-analises-sobre-os-resultados-obtidos" class="level2">
+<h2 class="anchored" data-anchor-id="b-conclusões-e-analises-sobre-os-resultados-obtidos">1.5. b) Conclusões e analises sobre os resultados obtidos</h2>
+<p><strong>Matrix de scatterplot para todas as variáveis</strong></p>
+<p>A matrix de scatterplot é uma representação visual que mostra a relação entre duas ou mais variáveis quantitativas. É composta por vários gráficos de dispersão bivariados, onde cada par de variáveis é plotado em um gráfico separado. Essa representação permite analisar rapidamente a relação entre todas as variáveis de interesse em um único gráfico, o que pode ser útil na investigação de relações entre variáveis em conjunto.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(dados</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>      [, <span class="fu">c</span>(<span class="st">"gestwks"</span>, <span class="st">"mageyrs"</span>, <span class="st">"mheightcm"</span>, <span class="st">"bwtkg"</span>)], </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">pch =</span> <span class="dv">21</span>, </span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">bg =</span> <span class="fu">c</span>(<span class="st">"blue"</span>, <span class="st">"red"</span>, <span class="st">"green"</span>, <span class="st">"yellow"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="relatorio_02_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpairs</span>(dados)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="relatorio_02_files/figure-html/unnamed-chunk-18-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Com base nas análises realizadas, é possível identificar algumas tendências na relação entre as variáveis gestwks (idade gestacional), mageyrs (idade da mãe) e mheightcm (altura da mãe) com a variável de resultado bwtkg (peso ao nascer).</p>
+<p>A partir da matrix de correlação, dos scatterplots e dos demais gráficos, podemos ver que existe uma correlação positiva moderada entre o peso ao nascer da criança (bwtkg) e a idade gestacional (gestwks), com um valor de correlação de 0,43. Isso significa que, em geral, quanto maior a idade gestacional, maior é o peso ao nascer da criança.</p>
+<p>Já a correlação entre a idade da mãe (mageyrs) e o peso ao nascer da criança (bwtkg) é muito baixa, com um valor de correlação de apenas 0,001. Isso sugere que a idade da mãe não tem uma influência significativa sobre o peso ao nascer da criança.</p>
+<p>A altura da mãe (mheightcm) também tem uma correlação positiva moderada com o peso ao nascer da criança (bwtkg), com um valor de correlação de 0,20. Isso indica que, em geral, quanto maior a altura da mãe, maior é o peso ao nascer da criança.</p>
+<p>Em conclusão, o fator mais relevante ou que melhor pode prever o peso ao nascer da criança é a idade gestacional (gestwks), seguido pela altura da mãe (mheightcm). A idade da mãe (mageyrs) parece ter uma influência muito baixa sobre o peso ao nascer da criança.</p>
+<p><strong>Gráfico de dispersão com curva lowess entre gestwks e bwtkg</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> dados, <span class="fu">aes</span>(<span class="at">x =</span> gestwks, <span class="at">y =</span> bwtkg)) <span class="sc">+</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>, <span class="at">formula =</span> y <span class="sc">~</span> x) <span class="sc">+</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Gráfico de Dispersão entre gestwks e bwtkg com Curva Lowess"</span>) <span class="sc">+</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Idade Gestacional (em Semanas)"</span>) <span class="sc">+</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Peso ao Nascer (em kg)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="relatorio_02_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="análises-de-regressão-linear-simples-completas" class="level2">
+<h2 class="anchored" data-anchor-id="análises-de-regressão-linear-simples-completas">2. Análises de Regressão Linear Simples completas</h2>
+<section id="modelo-de-regressão-linear-simples-para-gestwks" class="level3">
+<h3 class="anchored" data-anchor-id="modelo-de-regressão-linear-simples-para-gestwks">2.1. Modelo de regressão linear simples para gestwks</h3>
+<p><strong>Modelo</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(bwtkg <span class="sc">~</span> gestwks, <span class="at">data =</span> dados)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = bwtkg ~ gestwks, data = dados)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-1.43502 -0.28249  0.01492  0.28621  1.50992 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -1.066189   0.365473  -2.917  0.00365 ** 
+gestwks      0.112530   0.009179  12.259  &lt; 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.4486 on 678 degrees of freedom
+Multiple R-squared:  0.1814,    Adjusted R-squared:  0.1802 
+F-statistic: 150.3 on 1 and 678 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p><strong>Análise do Modelo</strong></p>
+<ul>
+<li><p><strong>R-squared:</strong> 0.1814, indica que aproximadamente 18% da variação na variável dependente bwtkg pode ser explicada pelo modelo de regressão linear simples com gestwks como variável independente.</p></li>
+<li><p><strong>Coeficiente da variável independente gestwks:</strong> 0.112530, significa que a cada semana a mais de gestação, o peso ao nascer é previsto aumentar em aproximadamente 0,1125 kg.</p></li>
+<li><p><strong>p-value:</strong> &lt; 2.2e-16, indica que a relação entre gestwks e bwtkg é estatisticamente significativa.</p></li>
+</ul>
+<p><strong>Calculando Intervalo de confiança</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>confint1 <span class="ot">&lt;-</span> <span class="fu">confint</span>(model1)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>confint1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                  2.5 %     97.5 %
+(Intercept) -1.78378433 -0.3485940
+gestwks      0.09450691  0.1305536</code></pre>
+</div>
+</div>
+<p>Intervalo de confiança de 0.09450691 a 0.1305536, siguinifica que o valor mínimo previsto é 0.09450691 e o valor máximo previsto é 0.1305536. Isso significa que, com 95% de confiança, o verdadeiro valor do coeficiente está entre esses dois valores.</p>
+<p><strong>Verificando a linearidade</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(model1<span class="sc">$</span>residuals)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  model1$residuals
+W = 0.99716, p-value = 0.2848</code></pre>
+</div>
+</div>
+<p>O teste de Shapiro-Wilk de normalidade sugere que não há evidências suficientes para rejeitar a hipótese de que os resíduos sejam normais, já que o p-valor é de 0,2848, o que é maior que o nível de significância convencional de 0,05. Portanto, a linearidade não é rejeitada com base nesse teste, mas ela pode ser comprovada ao abservar o gráfico de dispersão bivariada dá variável gestwks onde é possível observar uma tendência clara de crescimento.</p>
+<p><strong>Verificando a homocedasticidade</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bptest</span>(model1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    studentized Breusch-Pagan test
+
+data:  model1
+BP = 2.2613, df = 1, p-value = 0.1326</code></pre>
+</div>
+</div>
+<p>O teste studentized Breusch-Pagan apresentou um p-value de 0,1326, o que é maior que o nível de significância de 0,05, sugerindo que não há evidências contra a hipótese de homocedasticidade. Isso indica que a variação dos resíduos é constante ao longo da série temporal</p>
+<p><strong>Verificando a normalidade dos resíduos</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(model1<span class="sc">$</span>residuals)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  model1$residuals
+W = 0.99716, p-value = 0.2848</code></pre>
+</div>
+</div>
+<p>O teste Shapiro-Wilk de normalidade dos resíduos apresentou um p-value de 0,2848, o que é maior que o nível de significância de 0,05, sugerindo que não há evidências contra a hipótese de que os resíduos sejam normalmente distribuídos. Isso indica que a distribuição dos resíduos é consistente com a normalidade.</p>
+<p><strong>Verificando a independência dos erros</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dwtest</span>(model1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Durbin-Watson test
+
+data:  model1
+DW = 2.018, p-value = 0.5936
+alternative hypothesis: true autocorrelation is greater than 0</code></pre>
+</div>
+</div>
+<p>O teste Durbin-Watson apresentou um p-value de 0,5936, o que é maior que o nível de significância de 0,05, sugerindo que não há evidências contra a hipótese de independência dos erros. Isso indica que os erros são independentes uns dos outros, o que é uma suposição importante para a validade dos resultados do modelo.</p>
+</section>
+<section id="modelo-de-regressão-linear-simples-para-mageyrs" class="level3">
+<h3 class="anchored" data-anchor-id="modelo-de-regressão-linear-simples-para-mageyrs">2.2. Modelo de regressão linear simples para mageyrs</h3>
+<p><strong>Modelo</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(bwtkg <span class="sc">~</span> mageyrs, <span class="at">data =</span> dados)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = bwtkg ~ mageyrs, data = dados)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-1.90974 -0.32939  0.03974  0.31133  1.76000 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 3.407e+00  9.204e-02  37.016   &lt;2e-16 ***
+mageyrs     8.699e-05  3.483e-03   0.025     0.98    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.4958 on 678 degrees of freedom
+Multiple R-squared:  9.201e-07, Adjusted R-squared:  -0.001474 
+F-statistic: 0.0006238 on 1 and 678 DF,  p-value: 0.9801</code></pre>
+</div>
+</div>
+<p><strong>Análise do Modelo</strong></p>
+<ul>
+<li><p><strong>R-squared:</strong> 9.201e-07, indica que aproximadamente 0% da variação na variável dependente bwtkg pode ser explicada pelo modelo de regressão linear simples com mageyrs como variável independente.</p></li>
+<li><p><strong>Coeficiente da variável independente mageyrs:</strong> 8.699e-05, significa que a cada ano a mais de idade da mãe, o peso ao nascer é previsto aumentar em aproximadamente 0,000087 kg.</p></li>
+<li><p><strong>p-value:</strong> 0.98, indica que a relação entre mageyrs e bwtkg não é estatisticamente significativa.</p></li>
+</ul>
+<p><strong>Calculando Intervalo de confiança</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>confint2 <span class="ot">&lt;-</span> <span class="fu">confint</span>(model2)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>confint2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                   2.5 %      97.5 %
+(Intercept)  3.226237166 3.587676148
+mageyrs     -0.006751352 0.006925325</code></pre>
+</div>
+</div>
+<p>Intervalo de confiança de -0.006751352 a 0.006925325, significa que o valor mínimo previsto é -0.006751352 e o valor máximo previsto é 0.006925325. Isso significa que, com 95% de confiança, o verdadeiro valor do coeficiente está entre esses dois valores.</p>
+<p><strong>Verificando a linearidade</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(model2<span class="sc">$</span>residuals)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  model2$residuals
+W = 0.99644, p-value = 0.1325</code></pre>
+</div>
+</div>
+<p>O teste Shapiro-Wilk de normalidade sugere que não há evidências suficientes para rejeitar a hipótese de que os resíduos sejam normais, com um p-valor de 0,1325, maior que o nível de significância de 0,05. Assim, a linearidade não é rejeitada por este teste, no entanto, conclui-se que não é linear pois ao abservar o gráfico de dispersão bivariada dá variável mageyrs é posspivel observar que não existe uma tendência clara de crescimento ou decréscimo.</p>
+<p><strong>Verificando a homocedasticidade</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bptest</span>(model2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    studentized Breusch-Pagan test
+
+data:  model2
+BP = 0.34671, df = 1, p-value = 0.556</code></pre>
+</div>
+</div>
+<p>O teste studentized Breusch-Pagan apresentou um p-value de 0,556, o que é maior que o nível de significância de 0,05, sugerindo que não há evidências contra a hipótese de homocedasticidade. Isso indica que a variação dos resíduos é constante ao longo da série temporal.</p>
+<p><strong>Verificando a normalidade dos resíduos</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(model2<span class="sc">$</span>residuals)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  model2$residuals
+W = 0.99644, p-value = 0.1325</code></pre>
+</div>
+</div>
+<p>O teste Shapiro-Wilk de normalidade dos resíduos apresentou um p-value de 0,1325, o que é maior que o nível de significância de 0,05, sugerindo que não há evidências contra a hipótese de que os resíduos sejam normalmente distribuídos. Isso indica que a distribuição dos resíduos é consistente com a normalidade.</p>
+<p><strong>Verificando a independência dos erros</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dwtest</span>(model2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Durbin-Watson test
+
+data:  model2
+DW = 1.9863, p-value = 0.4279
+alternative hypothesis: true autocorrelation is greater than 0</code></pre>
+</div>
+</div>
+<p>O teste Durbin-Watson apresentou um p-value de 0,4279, o que é maior que o nível de significância de 0,05, sugerindo que não há evidências contra a hipótese de independência dos erros. Isso indica que os erros são independentes uns dos outros, o que é uma suposição importante para a validade dos resultados do modelo.</p>
+</section>
+<section id="modelo-de-regressão-linear-simples-para-mheightcm" class="level3">
+<h3 class="anchored" data-anchor-id="modelo-de-regressão-linear-simples-para-mheightcm">2.3. Modelo de regressão linear simples para mheightcm</h3>
+<p><strong>Modelo</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>model3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(bwtkg <span class="sc">~</span> mheightcm, <span class="at">data =</span> dados)</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = bwtkg ~ mheightcm, data = dados)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-1.89167 -0.31387  0.00833  0.31884  1.81874 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 0.805332   0.483849   1.664   0.0965 .  
+mheightcm   0.015910   0.002954   5.386 9.97e-08 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.4855 on 678 degrees of freedom
+Multiple R-squared:  0.04102,   Adjusted R-squared:  0.03961 
+F-statistic:    29 on 1 and 678 DF,  p-value: 9.968e-08</code></pre>
+</div>
+</div>
+<p><strong>Análise do Modelo</strong></p>
+<ul>
+<li><p><strong>R-squared:</strong> 0.04102, indica que aproximadamente 4.1% da variação na variável dependente bwtkg pode ser explicada pelo modelo de regressão linear simples com mheightcm como variável independente.</p></li>
+<li><p><strong>Coeficiente da variável independente mheightcm:</strong> 0.015910, significa que a cada centímetro a mais na altura da mãe, o peso ao nascer é previsto aumentar em aproximadamente 0.015910 kg.</p></li>
+<li><p><strong>p-value:</strong> 9.97e-08, indica que a relação entre mheightcm e bwtkg é estatisticamente significativa, com p-value menor que 0.05.</p></li>
+</ul>
+<p><strong>Calculando Intervalo de confiança</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>confint3 <span class="ot">&lt;-</span> <span class="fu">confint</span>(model3)</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>confint3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                  2.5 %     97.5 %
+(Intercept) -0.14469167 1.75535468
+mheightcm    0.01010959 0.02171057</code></pre>
+</div>
+</div>
+<p>Intervalo de confiança de 0.01010959 a 0.02171057, significa que o valor mínimo previsto é 0.01010959 e o valor máximo previsto é 0.02171057. Isso significa que, com 95% de confiança, o verdadeiro valor do coeficiente está entre esses dois valores.</p>
+<p><strong>Verificando a linearidade</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(model3<span class="sc">$</span>residuals)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  model3$residuals
+W = 0.99684, p-value = 0.2048</code></pre>
+</div>
+</div>
+<p>O teste de Shapiro-Wilk de normalidade dos resíduos apresentou um p-value de 0,2048, o que é maior que o nível de significância convencional de 0,05. Isso sugere que não há evidências suficientes para rejeitar a hipótese de que os resíduos sejam normais, mas ela pode ser comprovada ao abservar o gráfico de dispersão bivariada dá variável mheightcm onde é posspivel observar uma tendência leve de crescimento.</p>
+<p><strong>Verificando a homocedasticidade</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bptest</span>(model3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    studentized Breusch-Pagan test
+
+data:  model3
+BP = 0.2296, df = 1, p-value = 0.6318</code></pre>
+</div>
+</div>
+<p>O teste studentized Breusch-Pagan apresentou um p-value de 0,6318, o que é maior que o nível de significância de 0,05, sugerindo que não há evidências contra a hipótese de homocedasticidade. Isso indica que a variação dos resíduos é constante ao longo da série temporal.</p>
+<p><strong>Verificando a normalidade dos resíduos</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(model3<span class="sc">$</span>residuals)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  model3$residuals
+W = 0.99684, p-value = 0.2048</code></pre>
+</div>
+</div>
+<p>O teste Shapiro-Wilk de normalidade dos resíduos apresentou um p-value de 0,2848, o que é maior que o nível de significância de 0,05, sugerindo que não há evidências contra a hipótese de que os resíduos sejam normalmente distribuídos. Isso indica que a distribuição dos resíduos é consistente com a normalidade.</p>
+<p><strong>Verificando a independência dos erros</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dwtest</span>(model3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Durbin-Watson test
+
+data:  model3
+DW = 2.0357, p-value = 0.6804
+alternative hypothesis: true autocorrelation is greater than 0</code></pre>
+</div>
+</div>
+<p>O teste Durbin-Watson apresentou um p-value de 0,6804, o que é maior que o nível de significância de 0,05, sugerindo que não há evidências contra a hipótese de independência dos erros. Isso indica que os erros são independentes uns dos outros, o que é uma suposição importante para a validade dos resultados do modelo.</p>
+</section>
+<section id="conclusões-gerais-sobre-os-resultados-dos-modelos" class="level3">
+<h3 class="anchored" data-anchor-id="conclusões-gerais-sobre-os-resultados-dos-modelos">2.4. Conclusões gerais sobre os resultados dos modelos</h3>
+<p>De acordo com os resultados dos 3 modelos, o fator mais relevante/associado que pode melhor prever a variável dependente “bwtkg” é “gestwks”. Isso porque o coeficiente “gestwks” apresenta o maior valor de t (12.259) e o menor p-valor (menor que 2.2x10^-16) em comparação com os outros fatores “mageyrs” e “mheightcm”. Além disso, o modelo com “gestwks” como variável explicativa apresenta o maior valor de R-quadrado ajustado (0,1802).</p>
+</section>
+<section id="desenvolvendo-algumas-previsões" class="level3">
+<h3 class="anchored" data-anchor-id="desenvolvendo-algumas-previsões">2.5. Desenvolvendo algumas previsões</h3>
+<p><strong>Qual seria o peso da criança ao nascer esperado para uma gestação de 24 semanas?</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>gestwks_new <span class="ot">&lt;-</span> <span class="dv">24</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(model1, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">gestwks =</span> gestwks_new))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       1 
+1.634537 </code></pre>
+</div>
+</div>
+<p>A previsão acima indica que, utilizando o modelo 1, o valor previsto da variável dependente “bwtkg” é de 1.634537 kg quando considerada uma gestação de 24 semanas. Isso significa que, segundo esse modelo, é esperado que um bebê nasça com cerca de 1.63 kg caso a gestação dure 20 semanas. Cabe ressaltar que essa previsão é baseada nas relações entre as variáveis presentes no modelo e não leva em conta outras informações importantes que possam influenciar o peso ao nascer.</p>
+<p><strong>Qual seria o peso da criança ao nascer esperado para uma criança nascida de uma mãe com idade de 22 anos?</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>mageyrs_new <span class="ot">=</span> <span class="dv">22</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(model2, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">mageyrs =</span> mageyrs_new))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      1 
+3.40887 </code></pre>
+</div>
+</div>
+<p>A previsão acima indica que, utilizando o modelo 2, o valor previsto da variável dependente “bwtkg” é de 3.40887 kg quando considerado que a mãe possui 22 anos de idade. Isso significa que, segundo esse modelo, é esperado que um bebê nasça com cerca de 3.41 kg caso a mãe possua 22 anos de idade. Cabe ressaltar que essa previsão é baseada nas relações entre as variáveis presentes no modelo e não leva em conta outras informações importantes que possam influenciar o peso ao nascer.</p>
+<p><strong>Qual seria o peso da criança ao nascer esperado para uma criança nascida de uma mãe com altura de 1.73 m?</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>mheightcm_new <span class="ot">&lt;-</span> <span class="dv">173</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(model3, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">mheightcm =</span> mheightcm_new))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       1 
+3.557776 </code></pre>
+</div>
+</div>
+<p>A previsão acima indica que, utilizando o modelo 3, o valor previsto da variável dependente “bwtkg” é de 3.557776 kg quando considerado que a mãe possui 1.73cm de altura. Isso significa que, segundo esse modelo, é esperado que um bebê nasça com cerca de 3.56 kg caso a mãe possua 1.73cm de altura. Cabe ressaltar que essa previsão é baseada nas relações entre as variáveis presentes no modelo e não leva em conta outras informações importantes que possam influenciar o peso ao nascer.</p>
+</section>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

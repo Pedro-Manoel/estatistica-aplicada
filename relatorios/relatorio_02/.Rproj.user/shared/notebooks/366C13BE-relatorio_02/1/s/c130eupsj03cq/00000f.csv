@@ -1,0 +1,5 @@
+"0","ggplot(dados, aes(x = bwtkg, y = factor(1))) +"
+"0","  geom_boxplot() +"
+"0","  xlab(""Peso da Criança (em kg)"") +"
+"0","  ylab("""") +"
+"0","  ggtitle(""Boxplot da Distribuição do peso da criança ao nascer"")"

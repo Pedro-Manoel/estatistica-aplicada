@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.251">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Pedro Manoel Herminio Alves - 119210706">
+<meta name="dcterms.date" content="2023-04-10">
+
+<title>lista 01 (Conceitos Básicos / Introdução à Estatística)</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="lista_01_files/libs/clipboard/clipboard.min.js"></script>
+<script src="lista_01_files/libs/quarto-html/quarto.js"></script>
+<script src="lista_01_files/libs/quarto-html/popper.min.js"></script>
+<script src="lista_01_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="lista_01_files/libs/quarto-html/anchor.min.js"></script>
+<link href="lista_01_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="lista_01_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="lista_01_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="lista_01_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="lista_01_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">lista 01 (Conceitos Básicos / Introdução à Estatística)</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Pedro Manoel Herminio Alves - 119210706 </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 10, 2023</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header>
+
+<section id="questão-01" class="level1">
+<h1>Questão 01</h1>
+<p>A distribuição de frequência é um arranjo de valores que uma ou mais variáveis tomam em uma amostra. Cada entrada na tabela contém a frequência ou a contagem de ocorrências de valores dentro de um grupo ou intervalo específico, e deste modo, a tabela resume a distribuição dos valores da amostra.</p>
+<section id="exemplo" class="level2">
+<h2 class="anchored" data-anchor-id="exemplo">Exemplo</h2>
+<p>Conjunto de idades (em anos): <span class="math display">\[
+\begin{matrix}
+12 \quad 14 \quad 18 \\  
+14 \quad 12 \quad 18 \\  
+18 \quad 20 \quad 18 \\  
+17 \quad 19 \quad 20 \\
+20 \quad 14 \quad 19
+\end{matrix}
+\]</span></p>
+<p>Tabela de distribuição para a variável IDADE (em anos)</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>IDADE (em anos)</th>
+<th>Freq. Absoluta</th>
+<th>Freq. Relativa</th>
+<th>Porcentagem</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>12</td>
+<td>2</td>
+<td>0,1333</td>
+<td>13,33%</td>
+</tr>
+<tr class="even">
+<td>14</td>
+<td>3</td>
+<td>0,2000</td>
+<td>20,00%</td>
+</tr>
+<tr class="odd">
+<td>17</td>
+<td>1</td>
+<td>0,0667</td>
+<td>6,67%</td>
+</tr>
+<tr class="even">
+<td>18</td>
+<td>4</td>
+<td>0,2667</td>
+<td>26,67%</td>
+</tr>
+<tr class="odd">
+<td>19</td>
+<td>2</td>
+<td>0,1333</td>
+<td>13,33%</td>
+</tr>
+<tr class="even">
+<td>20</td>
+<td>3</td>
+<td>0,2000</td>
+<td>20,00%</td>
+</tr>
+<tr class="odd">
+<td><strong>Total</strong></td>
+<td>15</td>
+<td>1</td>
+<td>100%</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="questão-02" class="level1">
+<h1>Questão 02</h1>
+<p>Uma <strong>variável aleatória</strong> é nada mais que uma função que mapeia os resultados de um processo estocástico (aleatório) em valores numéricos.</p>
+<p>Como exemplo podemos imaginar um <strong>experimento aleatório</strong> simples como lançar uma moeda honesta, os possíveis resultados podem ser <span class="math inline">\(\Omega = \left \{ cara, coroa \right \}\)</span>, o conjunto de todos os possíveis resultados de um experimento aleatório é chamado do espaço amostral <span class="math inline">\(\Omega\)</span>. Agora imagine uma função qualquer que transformem os resultados em um valor numérico, como por exemplo, <strong>número de coroas</strong>, note que deste experimento podemos ter dois resultados, cara ou coroa, sendo o número de coroas, <strong>0</strong> ou <strong>1</strong>.</p>
+<p>Assim <span class="math inline">\(X\)</span> é a variável aleatória que traduz todos os resultados do experimento aleatório em números <span class="math inline">\(x\)</span>.</p>
+<p>A notação usual é, a letra maiúscula <span class="math inline">\(X\)</span> representa a variável aleatória, e <span class="math inline">\(x\)</span> representa o valor numérico.</p>
+</section>
+<section id="questão-03" class="level1">
+<h1>Questão 03</h1>
+<p>As variáveis aleatórias podem ser classificadas como <strong>discreta</strong> ou <strong>contínua</strong>.</p>
+<p><strong>Variável aleatória discreta</strong> - são aquelas que os resultados são frutos de <strong>contagem</strong></p>
+<ul>
+<li><em>Exemplo</em>: Número de filhos, número de sucessos em <span class="math inline">\(n\)</span> tentativas,…</li>
+</ul>
+<p><strong>Variável aleatória contínua</strong> - são aquelas que os resultados são frutos de <strong>mensuração</strong></p>
+<ul>
+<li><em>Exemplo</em>: massa (kg) do objeto , altura (m) do indivíduo, idade, temperatura, diâmetro da peça, …</li>
+</ul>
+</section>
+<section id="questão-04" class="level1">
+<h1>Questão 04</h1>
+<p><strong>Função ou distribuição de probabilidade</strong> de uma experiência aleatória é a função que a cada evento possível faz corresponder a probabilidade do evento ocorrer.</p>
+<section id="exemplo-1" class="level2">
+<h2 class="anchored" data-anchor-id="exemplo-1">Exemplo</h2>
+<p>Considere o experimento do lançamento de duas moedas honestas. Seja a variável aleatória o número de caras obtidas. Podemos construir a função de probabilidade de <span class="math inline">\(X\)</span> da seguinte forma:</p>
+<p><span class="math inline">\(X\)</span> assume os seguintes valores:</p>
+<ul>
+<li><span class="math inline">\(X = \left \{ 0, 1, 2 \right \}\)</span></li>
+</ul>
+<p>Temos que</p>
+<p><span class="math inline">\(P(X = 0) = P(K,K) = \frac{1}{4}\)</span></p>
+<p><span class="math inline">\(P(X = 1) = P(C,K) + P(K,C) = \frac{1}{2}\)</span></p>
+<p><span class="math inline">\(P(X = 2) = P(C,C) = \frac{1}{4}\)</span></p>
+<p>Denotamos a função de probabilidade de <span class="math inline">\(X\)</span> por</p>
+<p><span class="math display">\[
+\begin{array} {c| c c c}
+\hline
+  x_{i} &amp; 0 &amp; 1 &amp; 2 \\
+  \hline
+  P(X=x_{i}) &amp; 1/4 &amp; 1/2 &amp; 1/4 \\
+  \hline
+\end{array}
+\]</span></p>
+</section>
+</section>
+<section id="questão-05" class="level1">
+<h1>Questão 05</h1>
+<p>Uma distribuição de probabilidade é um modelo matemático que relaciona um certo valor da variável em estudo com a sua probabilidade de ocorrência.</p>
+</section>
+<section id="questão-06" class="level1">
+<h1>Questão 06</h1>
+<p>Sim, pois a distribuição de probabilidades pode ser representada por um histograma de probabilidades, similar ao histograma de freqüências aonde a escala vertical representa probabilidades, em lugar das freqüências relativas.</p>
+</section>
+<section id="questão-07" class="level1">
+<h1>Questão 07</h1>
+<p>Podemos utilizar de experimentos cujo resultados são tais que ocorre ou não ocorre determinada característica.</p>
+<p>Como os seguintes exemplos:</p>
+<ol type="1">
+<li><p><strong>Ao lançar uma moeda honesta:</strong> o resultado ou é cara ou não (ocorrendo, então, coroa);</p></li>
+<li><p><strong>Ao lançar um dado honesto:</strong> ocorre número par ou não (ocorrendo número ımpar);</p></li>
+<li><p><strong>Uma pessoa é escolhida ao acaso dentre 1000:</strong> ou ela é favorável a um determinado projeto governamental ou não.</p></li>
+</ol>
+</section>
+<section id="questão-08" class="level1">
+<h1>Questão 08</h1>
+<p>Em estatística, um parâmetro <strong>é um número que resume a grande quantidade de dados que podem derivar do estudo de uma variável estatística.</strong> O cálculo deste número está bem definido, usualmente mediante uma fórmula aritmética obtida a partir de dados da população.</p>
+<section id="exemplo-2" class="level2">
+<h2 class="anchored" data-anchor-id="exemplo-2">Exemplo</h2>
+<p>Observando-se a população de uma cidade podemos obter como parâmetros a média das idades dos indivíduos dessa população, ou a proporção de homens e mulheres</p>
+</section>
+</section>
+<section id="questão-09" class="level1">
+<h1>Questão 09</h1>
+<p>Temos os seguintes parâmetros:</p>
+<ul>
+<li><span class="math inline">\(p\)</span> que representa a probabilidade de sucesso, onde <span class="math inline">\(0&lt; p&lt;1\)</span></li>
+</ul>
+</section>
+<section id="questão-10" class="level1">
+<h1>Questão 10</h1>
+<p>f.p da distribuição de Bernoulli</p>
+<ul>
+<li><span class="math inline">\(P(X=K)=p^{k}(1-9)^{1-k}, \ k \ \epsilon \ R_x = \left \{ 0,1 \right \}\)</span></li>
+</ul>
+<section id="exemplo-3" class="level2">
+<h2 class="anchored" data-anchor-id="exemplo-3">Exemplo</h2>
+<section id="problema" class="level3">
+<h3 class="anchored" data-anchor-id="problema">Problema</h3>
+<p>Considere uma urna contendo seis bolas azuis e quatro vermelhas. Qual a probabilidade de que retirando-se uma bola, essa bola seja azul?</p>
+</section>
+<section id="solução" class="level3">
+<h3 class="anchored" data-anchor-id="solução">Solução</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Número de bolas de cada tipo</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>bolasAzuis <span class="ot">=</span> <span class="dv">6</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>bolasVermelhas <span class="ot">=</span> <span class="dv">4</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Probabilidade de sucesso (retirar bola azul)</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>bolasAzuis <span class="sc">/</span> (bolasAzuis <span class="sc">+</span> bolasVermelhas)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.6</code></pre>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="questão-11" class="level1">
+<h1>Questão 11</h1>
+<p>Podemos utilizar de experimentos que necessitamos saber o número de sucessos obtidos em <span class="math inline">\(n\)</span> ensaios independentes e idênticos de um experimento aleatório.</p>
+<p>Como os seguintes exemplos:</p>
+<ol type="1">
+<li>Sabendo-se que em uma urna existe seis bolas azuis e quatro bolas vermelhas, fazendo-se retiradas com reposição qual seria a probabilidade de retirar, no mínimo, duas bolas azuis</li>
+<li>Sabendo-se que na manufatura de certo artigo, um entre dez dos artigos é defeituoso qual seria a probabilidade de que em uma amostra casual de tamanho quatro não contenha nenhum artigo defeituoso</li>
+</ol>
+</section>
+<section id="questão-12" class="level1">
+<h1>Questão 12</h1>
+<p>Temos os seguintes parâmetros:</p>
+<ul>
+<li><p><span class="math inline">\(p\)</span> que representa a probabilidade de sucesso, onde <span class="math inline">\(0&lt; p&lt;1\)</span></p></li>
+<li><p><span class="math inline">\(n\)</span> que representa o número de ensaios total, possíveis de serem realizados</p></li>
+</ul>
+</section>
+<section id="questão-13" class="level1">
+<h1>Questão 13</h1>
+<p>f.p da distribuição Binomial</p>
+<ul>
+<li><span class="math inline">\(P(X=K)= \binom{n}{k} \cdot p^k\cdot (1-p)^{n-k}, \ k \ \epsilon \ R_x = \left \{ 0,1,2,3,...,n \right \}\)</span></li>
+</ul>
+<section id="exemplo-4" class="level2">
+<h2 class="anchored" data-anchor-id="exemplo-4">Exemplo</h2>
+<section id="problema-1" class="level3">
+<h3 class="anchored" data-anchor-id="problema-1">Problema</h3>
+<p>Considere uma urna contendo seis bolas azuis e quatro vermelhas. Retire três bolas, com reposição, e defina a v.a. <span class="math inline">\(X\)</span> igual ao número de bolas azuis. Qual a probabilidade de sair no mínimo 2 bolas azuis?</p>
+</section>
+<section id="solução-1" class="level3">
+<h3 class="anchored" data-anchor-id="solução-1">Solução</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Número de bolas de cada tipo</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>bolasAzuis <span class="ot">=</span> <span class="dv">6</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>bolasVermelhas <span class="ot">=</span> <span class="dv">4</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Probabilidade de sucesso (retirar bola azul)</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>p <span class="ot">=</span> bolasAzuis <span class="sc">/</span> (bolasAzuis <span class="sc">+</span> bolasVermelhas)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Número de ensaios</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">3</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculando a probabilidade (Modelo Binomial)</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># P(X &gt;= 2) = 1 - P(X &lt; 2) = 1 - P(X &lt;= 1)</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="dv">1</span>, n, p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.648</code></pre>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="questão-14" class="level1">
+<h1>Questão 14</h1>
+<p>Em uma variável aleatória contínua o conjunto dos possíveis valores pode ser um intervalo ou um conjunto de intervalos.</p>
+<p>Seja <span class="math inline">\(X\)</span> uma variável aleatória continua. A função de densidade de probabilidade <span class="math inline">\(f(x)\)</span> é uma função que satisfaz as seguintes condições:</p>
+<p><span class="math display">\[
+f(x)&gt;0, \ \forall x  
+\]</span></p>
+<p>e</p>
+<p><span class="math display">\[
+\int_{-\infty}^{+\infty}f(x)dx=1
+\]</span></p>
+<section id="exemplo-5" class="level2">
+<h2 class="anchored" data-anchor-id="exemplo-5">Exemplo</h2>
+<p><span class="math inline">\(X\)</span> representa o consumo de combustível de um certo automóvel em Km/h</p>
+<p><span class="math display">\[
+f(x) = \left\{\begin{matrix}
+x-10, \ se \ 10 &lt; x &lt; 11, \\  
+12-x, \ se \ 11 \leqslant x &lt; 12, \\
+0, \ cc.  
+\end{matrix}\right.
+\]</span></p>
+</section>
+</section>
+<section id="questão-15" class="level1">
+<h1>Questão 15</h1>
+<p>Tomando como exemplo o seguinte cenário:</p>
+<p>O tempo necessário para concluir um exame final em determinado curso universitário está distribuído normalmente com uma média de 80 minutos e variância de 100 minutos²</p>
+<p>Temos como exemplo:</p>
+<ol type="1">
+<li>Qual é a probabilidade um estudante concluir o exame em uma hora ou menos?</li>
+<li>Qual é a probabilidade de um estudante demorar entre 60 e 75 minutos para concluir o exame?</li>
+<li>Suponha que a classe tenha 60 alunos e que a duração do exame seja de 90 minutos. Qual o número esperado de estudantes que concluiriam o exame no tempo determinado?</li>
+</ol>
+</section>
+<section id="questão-16" class="level1">
+<h1>Questão 16</h1>
+<p>Temos os seguintes parâmetros:</p>
+<ul>
+<li><p><span class="math inline">\(\mu\)</span> que representa a média</p></li>
+<li><p><span class="math inline">\(\sigma^{2}\)</span> que representa a variância</p></li>
+</ul>
+</section>
+<section id="questão-17" class="level1">
+<h1>Questão 17</h1>
+<p>f.d.p da distribuição Normal</p>
+<ul>
+<li><span class="math inline">\(f(x)=\frac{1}{\sqrt{2\pi\sigma^{2}}}e^{-(x-\mu)^2/2\sigma^2} , \ x \ \in \ \mathbb{R}\)</span></li>
+</ul>
+<section id="exemplo-6" class="level2">
+<h2 class="anchored" data-anchor-id="exemplo-6">Exemplo</h2>
+<section id="problema-2" class="level3">
+<h3 class="anchored" data-anchor-id="problema-2">Problema</h3>
+<p>Os depósitos efetuados em um certo banco durante o mês de janeiro são distribuídos normalmente, com média de $10000,00 e desvio padrão $1500,00. Um depósito é selecionado ao acaso dentre todos os referentes ao mês em questão. Calcule a probabilidade de que o depósito seja menor do que $13000,00.</p>
+</section>
+<section id="solução-2" class="level3">
+<h3 class="anchored" data-anchor-id="solução-2">Solução</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># parâmetros</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>mean <span class="ot">=</span> <span class="dv">10000</span> <span class="co"># Média</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>sd <span class="ot">=</span> <span class="dv">1500</span> <span class="co"># Desvio Padrão</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculando a probabilidade (Modelo Normal)</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># P(X &lt; 13000)</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="dv">13000</span>, mean, sd)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9772499</code></pre>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="questão-18" class="level1">
+<h1>Questão 18</h1>
+<p><strong>1 - Definição do problema</strong></p>
+<p>Antes de qualquer coisa, deve-se ter bem definido qual é o problema que deve ser resolvido por meio de análises estatísticas.</p>
+<p><strong>2 - Planejamento</strong></p>
+<p>Nesta etapa, deve-se estipular como será feita a coleta dos dados que irão compor o estudo. O trabalho a ser realizado depende do objetivo que se pretende alcançar. Deve-se ter um cuidado especial com a escolha das perguntas e a formulação delas, para que as respostas estejam dentro do que se espera. Vale ressaltar que, na maioria dos casos, dados internos e externos serão necessários.</p>
+<p><strong>3 - Coleta de dados</strong></p>
+<p>Essa é a etapa mais operacional do processo, ou seja, é a&nbsp;coleta de informações propriamente dita. A qualidade das fontes deve ser levada em conta, bem como a periodicidade da coleta. O estudo vai ser algo contínuo, periódico ou ocasional? Isso varia de acordo com o objeto de estudo.</p>
+<p><strong>4 - Crítica dos dados</strong></p>
+<p>Depois que as informações foram reunidas, é hora de verificar se há erros ou inconsistências que possam afetar o resultado final. Se os dados foram coletados por meio de questionários, por exemplo, deve-se verificar se as respostas obtidas condizem com a necessidade para o estudo.</p>
+<p><strong>5 - Apuração dos dados</strong></p>
+<p>Feita a triagem dos dados, o próximo passo é contabilizar e organizar tudo. Nesta etapa, é importante que tudo seja separado dentro de uma lógica que facilite o trabalho de análise. Aqui também pode ser condensado o que for mais relevante, o que vai ajudar na próxima etapa.</p>
+<p><strong>6 - Apresentação dos dados</strong></p>
+<p>As considerações levantadas com base na apuração dos dados serão transformadas em uma apresentação, que facilite o entendimento e a visibilidade. Ela pode ser tabular - focada apenas em números -, ou gráfica - utilizando tabelas e infográficos para deixar a leitura mais agradável.</p>
+<p><strong>7 - Análise e interpretação dos dados</strong></p>
+<p>A última fase é a mais importante e também a mais delicada. Neste ponto, tudo o que foi coletado, tabulado e apresentado será transformado em resoluções e insights que possam ser úteis na resolução do problema que foi definido na primeira etapa.</p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

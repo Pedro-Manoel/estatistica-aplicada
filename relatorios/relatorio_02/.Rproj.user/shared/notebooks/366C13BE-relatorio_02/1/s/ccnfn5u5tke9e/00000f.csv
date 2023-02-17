@@ -1,0 +1,6 @@
+"0","ggplot(data = dados, aes(x = gestwks, y = bwtkg)) +"
+"0","  geom_point() +"
+"0","  geom_smooth(method = ""loess"", formula = y ~ x) +"
+"0","  ggtitle(""Gráfico de Dispersão entre gestwks e bwtkg com Curva Lowess"") +"
+"0","  xlab(""Idade Gestacional (em Semanas)"") +"
+"0","  ylab(""Peso ao Nascer (em kg)"")"

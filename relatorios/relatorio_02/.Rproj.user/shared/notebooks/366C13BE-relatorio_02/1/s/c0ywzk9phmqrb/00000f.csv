@@ -1,0 +1,11 @@
+"0","dados = "
+"0","  dados %>% "
+"0","  select(gestwks, mageyrs, mheightcm, bwtkg)"
+"0",""
+"0","knitr::kable(head(dados), caption=""Primeiras linhas da base de dados"")"
+"2","Registered S3 methods overwritten by 'htmltools':
+  method               from         
+  print.html           tools:rstudio
+  print.shiny.tag      tools:rstudio
+  print.shiny.tag.list tools:rstudio
+"
